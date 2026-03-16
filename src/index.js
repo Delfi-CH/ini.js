@@ -138,12 +138,11 @@ function objectToIniString(object) {
         
     } 
 
-    return writtenLines
+    return writtenLines.join("\n")
 }
 
 function writeIniSync(filepath, object) {
-    const lines = objectToIniString(object)
-    const string = lines.join("\n")
+    const string = objectToIniString(object)
 
     try {
         writeFileSync(filepath  , string, 'utf8')
@@ -164,5 +163,4 @@ async function writeIni(filepath, object) {
         throw e
     }
 }
-
 export {readIni, readIniSync, iniStringToObject, objectToIniString, writeIniSync, writeIni}
