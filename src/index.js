@@ -5,7 +5,7 @@ import {readFile, writeFile} from 'fs/promises';
 function readIniSync(filepath) {
     try {
         const data = readFileSync(filepath, 'utf8')
-        return iniToObject(data)
+        return iniStringToObject(data)
     }
     catch (e) {
         throw e
@@ -15,14 +15,14 @@ function readIniSync(filepath) {
 async function readIni(filepath) {
     try {
         const data = await readFile(filepath, 'utf8')
-        return iniToObject(data)
+        return iniStringToObject(data)
     }
     catch (e) {
         throw e
     }
 }
 
-function iniToObject(string) {
+function iniStringToObject(string) {
     try {
         const keyValue = parseKeyValueToObject(string)
         return keyValue
@@ -52,7 +52,7 @@ function parseKeyValueToObject(string) {
 
             i++
 
-            while (i < lines.length && !lines[i].match(section)) {
+            while (i < lines.length && !lines[i].match(section) && lines[i].trim() !== "") {
                 sectionLines.push(lines[i])
                 i++
             }
@@ -61,8 +61,14 @@ function parseKeyValueToObject(string) {
 
             const sectionObject = {}
 
-            sectionLines.forEach((line) => {
-                const [k, v] = parseLine(line, i)
+            sectionLines.forEach((line, idx) => {
+                const comment = /;.*/
+
+                if (!!line.match(comment) || line.trim() === '') {
+                    return
+                }
+
+                const [k, v] = parseLine(line, idx)
                 sectionObject[k] = v
             })
 
@@ -104,4 +110,59 @@ function parseLine(line, index) {
     return splitLine
 }
 
-export {readIni, readIniSync}
+function objectToIniString(object) {
+    const keys = Object.keys(object)
+    const values = Object.values(object)
+
+    let writtenLines = []
+
+    for (let i = 0; i < keys.length; i++) {
+        let writtenLine = keys[i] + "="
+        let writtenValue;
+        if (Array.isArray(values[i])) {
+            throw new Error("Cannot parse an array!")
+        } else if (typeof(values[i])  === 'object') {
+            writtenLine = "[" + keys[i] + "]"
+            const sectionKeys = Object.keys(values[i])
+            const sectionValues = Object.values(values[i])
+            let sectionLines = []
+            for (let j = 0; j < sectionKeys.length; j++) {
+                sectionLines = [...sectionLines, (sectionKeys[j]+"="+sectionValues[j])]
+            }
+            writtenLines = [...writtenLines, writtenLine, ...sectionLines, ""]
+        } else {
+            writtenValue = values[i]
+            writtenLine = writtenLine + writtenValue
+            writtenLines = [...writtenLines, writtenLine]
+        }
+        
+    } 
+
+    return writtenLines
+}
+
+function writeIniSync(filepath, object) {
+    const lines = objectToIniString(object)
+    const string = lines.join("\n")
+
+    try {
+        writeFileSync(filepath  , string, 'utf8')
+    }
+    catch (e) {
+        throw e
+    }
+}
+
+async function writeIni(filepath, object) {
+    const lines = objectToIniString(object)
+    const string = lines.join("\n")
+
+    try {
+        await writeFile(filepath  , string, 'utf8')
+    }
+    catch (e) {
+        throw e
+    }
+}
+
+export {readIni, readIniSync, iniStringToObject, objectToIniString, writeIniSync, writeIni}
