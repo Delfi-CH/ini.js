@@ -1,0 +1,15 @@
+{
+  "name": "ini.js",
+  "version": "1.0.0",
+  "description": "Parses a .ini file into a Object",
+  "keywords": [
+    "ini"
+  ],
+  "license": "MIT",
+  "author": "Delfi-CH",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/test.js"
+  }
+}
