@@ -24,8 +24,7 @@ async function readIni(filepath) {
 
 function iniToObject(string) {
     try {
-        const rawKeyValue = parseStringToRawKeyValue(string)
-        const keyValue = parseKeyValueToObject(rawKeyValue)
+        const keyValue = parseKeyValueToObject(string)
         return keyValue
     } catch (e) {
         throw e
@@ -33,50 +32,76 @@ function iniToObject(string) {
     
 }
 
-function parseStringToRawKeyValue(string) {
+function parseKeyValueToObject(string) {
     const stripped = string.replaceAll(/\r\n/g, "\n")
-    const linesWithComments = stripped.split("\n")
+    const lines = stripped.split("\n")
+    let objectAsArray = []
 
-    let lines = linesWithComments.map((line)=>{
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i]
+        const section = /^\[(.*)\]$/
         const comment = /;.*/
-        return line.replace(comment, "")
-    })
-    lines = lines.filter((line)=> line !== '')
 
-    return lines
+        if (!!line.match(comment) || line.trim() === '') {
+            continue
+        }
+
+        if (!!line.match(section)) {
+            const sectionName = line.match(section)[1]
+            const sectionLines = []
+
+            i++
+
+            while (i < lines.length && !lines[i].match(section)) {
+                sectionLines.push(lines[i])
+                i++
+            }
+
+            i--
+
+            const sectionObject = {}
+
+            sectionLines.forEach((line) => {
+                const [k, v] = parseLine(line, i)
+                sectionObject[k] = v
+            })
+
+            objectAsArray.push([sectionName, sectionObject])
+        } else {
+            let splitLine = parseLine(line, i)
+
+            if (objectAsArray.flat().includes(splitLine[0])) {
+                throw new Error("Duplicate Key")
+            }
+            objectAsArray = [...objectAsArray, splitLine]
+        }
+    }
+    return Object.fromEntries(objectAsArray)
 }
 
-function parseKeyValueToObject(lines) {
-    let objectAsArray = []
-    lines.forEach((line)=> {
-        let splitLine = line.split("=")
+function parseLine(line, index) {
+    let splitLine = line.split("=")
 
-        if (objectAsArray.flat().includes(splitLine[0])) {
-            throw new Error("Duplicate Key")
-        }
+    if (splitLine.length !== 2 || !splitLine) {
+        throw new Error("Invalid key value pair at line " + (index + 1) + ": " + splitLine )
+    }
 
-        if (splitLine.length !== 2 || !splitLine) {
-             throw new Error("Invalid key value pair")
-        }
+    if (!isNaN(Number(splitLine[1]))) {
+        splitLine[1] = Number(splitLine[1])
+    }
 
-        if (!isNaN(Number(splitLine[1]))) {
-            splitLine[1] = Number(splitLine[1])
-        }
-
-        if (splitLine[1].toString().trim() === "true") {
-            splitLine[1] = true
-        } else if (splitLine[1].toString().trim() === "false" ) {
-            splitLine[1] = false
-        }
+    if (splitLine[1].toString().trim() === "true") {
+        splitLine[1] = true
+    } else if (splitLine[1].toString().trim() === "false" ) {
+        splitLine[1] = false
+    }
         
-        if (splitLine[1].toString().startsWith("\"") && splitLine[1].toString().endsWith("\"")) {
-            splitLine[1] = splitLine[1].slice(1)
-            splitLine[1] = splitLine[1].slice(0, -1)
-        }
+    if (splitLine[1].toString().startsWith("\"") && splitLine[1].toString().endsWith("\"")) {
+        splitLine[1] = splitLine[1].slice(1)
+        splitLine[1] = splitLine[1].slice(0, -1)
+    }
 
-        objectAsArray = [...objectAsArray, splitLine]
-    })
-    return Object.fromEntries(objectAsArray)
+    return splitLine
 }
 
 export {readIni, readIniSync}

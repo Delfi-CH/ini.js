@@ -40,7 +40,7 @@ async function test() {
     } catch (e) {
         passed++;
     }
-
+    
     console.log("Running asynchronus parsing of LF encoded file...");
 
     try {
@@ -78,6 +78,7 @@ async function test() {
     } catch (e) {
         passed++;
     }
+    
 
     console.log("\nTotal: " + (passed + failed));
     console.log("Passed: " + passed);
