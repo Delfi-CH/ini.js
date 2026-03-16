@@ -8,7 +8,7 @@
   "license": "MIT",
   "author": "Delfi-CH",
   "type": "module",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "node test/test.js"
   }
