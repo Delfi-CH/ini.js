@@ -1,6 +1,6 @@
 # ini.js
 
-Parse .ini files into JavaScript Objects
+Key-Value Parser for JavaScript
 
 ## Syntax
 
