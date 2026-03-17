@@ -2,6 +2,8 @@
 
 Key-Value Parser for JavaScript
 
+View on npm: [https://www.npmjs.com/package/@delfi-ch/ini.js?activeTab=readme](https://www.npmjs.com/package/@delfi-ch/ini.js?activeTab=readme)
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -29,6 +31,10 @@ Key-Value Parser for JavaScript
   - [examples/examples.js](#examplesexamplesjs)
 
 ## Overview
+
+Installation:
+
+`npm i @delfi-ch/ini.js`
 
 A minimal JavaScript parser for .ini-style Key=Value files/strings.
 
