@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "Key-Value Parser for JavaScript",
   "keywords": [
-    "ini, key-value, kv"
+    "ini", "key-value", "kv", "parser"
   ],
-  "license": "MIT",
-  "author": "Delfi-CH",
+  "license": "BSD-2-Clause",
+  "author": "Delfi-CH <delfi@delfi.dev> (https://delfi.dev)",
   "type": "module",
   "exports": {
     ".": {
@@ -18,7 +18,22 @@
       "require": "./src/commonjs/fs.cjs"
     }
   },
+  "main": "./src/commonjs/core.cjs",
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "test": "node test/test.js"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Delfi-CH/ini.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Delfi-CH/ini.js/issues"
+  },
+  "homepage": "https://github.com/Delfi-CH/ini.js",
+  "readme": "README.md"
 }
