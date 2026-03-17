@@ -1,14 +1,23 @@
 {
   "name": "ini.js",
-  "version": "1.0.0",
-  "description": "Parses a .ini file into a Object",
+  "version": "0.1.0",
+  "description": "Key-Value Parser for JavaScript",
   "keywords": [
-    "ini"
+    "ini, key-value, kv"
   ],
   "license": "MIT",
   "author": "Delfi-CH",
   "type": "module",
-  "main": "src/index.js",
+  "exports": {
+    ".": {
+      "import": "./src/modules/core.js",
+      "require": "./src/commonjs/core.cjs"
+    },
+    "./fs": {
+      "import": "./src/modules/fs.js",
+      "require": "./src/commonjs/fs.cjs"
+    }
+  },
   "scripts": {
     "test": "node test/test.js"
   }
