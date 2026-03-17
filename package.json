@@ -1,5 +1,5 @@
 {
-  "name": "ini.js",
+  "name": "@delfi-ch/ini.js",
   "version": "0.1.0",
   "description": "Key-Value Parser for JavaScript",
   "keywords": [
