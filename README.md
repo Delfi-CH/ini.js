@@ -24,7 +24,7 @@ Full line comments
 ```ini
 ; This works!
 key3=value3
-``` 
+```
 
 Quoted Values && Escape Codes
 
@@ -46,7 +46,7 @@ key6=value6
 
 Inline comments
 
-```ini 
+```ini
 key7=value7 ; This doesnt work.
 ```
 
@@ -72,7 +72,7 @@ const config = readIniSync("config.ini")
 
 Asynchronous writing of a JavaScript object to a .ini file.
 
-```js 
+```js
 const myObject = {key: "value", number: 42}
 await writeIni("example.ini", myObject)
 ```
@@ -81,7 +81,7 @@ await writeIni("example.ini", myObject)
 
 Synchronous writing of a JavaScript object to a .ini file.
 
-```js 
+```js
 const myObject = {key: "value", number: 42}
 writeIniSync("example.ini", myObject)
 ```
@@ -90,12 +90,14 @@ writeIniSync("example.ini", myObject)
 
 Convert a string, which is formatted like a .ini file to a JavaScript object.
 
-```js 
+```js
 const myString = "key=value\nnumber=42\n"
 const myObject = iniStringToObject(myString)
 ```
-**Output**
-```json 
+
+Output
+
+```json
 { key: 'value', number: 42 }
 ```
 
@@ -103,20 +105,23 @@ const myObject = iniStringToObject(myString)
 
 Convert a JavaScript object to a string, which is formatted like a .ini file.
 
-```js 
+```js
 const myObject = {key: "value", number: 42}
 const myString = objectToIniString(myObject)
 ```
-**Output**
-```ini 
+
+Output
+
+```ini
 key=value
 number=42
 ```
 
 ## Example
 
-**examples/config.ini**
-```ini 
+### examples/config.ini
+
+```ini
 [database]
 address=localhost:3306
 user=root
@@ -128,8 +133,9 @@ auth=true
 laststarted=2026-03-16T20:31:48.299Z
 ```
 
-**examples/examples.js**
-```js 
+### examples/examples.js
+
+```js
 import { readIni, writeIni, readIniSync, writeIniSync } from "ini.js/fs";
 import { iniStringToObject } from "ini.js"
 
