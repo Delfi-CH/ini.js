@@ -1,9 +1,12 @@
 {
-  "name": "ini.js",
+  "name": "@delfi-ch/ini.js",
   "version": "0.1.0",
   "description": "Key-Value Parser for JavaScript",
   "keywords": [
-    "ini", "key-value", "kv", "parser"
+    "ini",
+    "key-value",
+    "kv",
+    "parser"
   ],
   "license": "BSD-2-Clause",
   "author": "Delfi-CH <delfi@delfi.dev> (https://delfi.dev)",
@@ -29,7 +32,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Delfi-CH/ini.js.git"
+    "url": "git+https://github.com/Delfi-CH/ini.js.git"
   },
   "bugs": {
     "url": "https://github.com/Delfi-CH/ini.js/issues"
