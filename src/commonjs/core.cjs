@@ -1,27 +1,3 @@
-import { readFileSync, writeFileSync} from 'fs';
-
-import {readFile, writeFile} from 'fs/promises'; 
-
-function readIniSync(filepath) {
-    try {
-        const data = readFileSync(filepath, 'utf8')
-        return iniStringToObject(data)
-    }
-    catch (e) {
-        throw e
-    }
-}
-
-async function readIni(filepath) {
-    try {
-        const data = await readFile(filepath, 'utf8')
-        return iniStringToObject(data)
-    }
-    catch (e) {
-        throw e
-    }
-}
-
 function iniStringToObject(string) {
     try {
         const keyValue = parseKeyValueToObject(string)
@@ -141,26 +117,7 @@ function objectToIniString(object) {
     return writtenLines.join("\n")
 }
 
-function writeIniSync(filepath, object) {
-    const string = objectToIniString(object)
-
-    try {
-        writeFileSync(filepath  , string, 'utf8')
-    }
-    catch (e) {
-        throw e
-    }
+module.exports = {
+    iniStringToObject,
+    objectToIniString
 }
-
-async function writeIni(filepath, object) {
-    const lines = objectToIniString(object)
-    const string = lines.join("\n")
-
-    try {
-        await writeFile(filepath  , string, 'utf8')
-    }
-    catch (e) {
-        throw e
-    }
-}
-export {readIni, readIniSync, iniStringToObject, objectToIniString, writeIniSync, writeIni}

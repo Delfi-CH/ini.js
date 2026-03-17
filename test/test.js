@@ -1,4 +1,4 @@
-import { readIniSync, readIni, writeIniSync, writeIni } from "../src/index.js"
+import { readIniSync, readIni, writeIniSync, writeIni } from "../src/modules/fs.js"
 import { isDeepStrictEqual } from "node:util";
 
 async function test() {
@@ -126,4 +126,5 @@ async function test() {
         console.log("\nPassed all tests")
     }
 }
+
 test()

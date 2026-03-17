@@ -1,4 +1,10 @@
-import { readIni, writeIni, readIniSync, writeIniSync, iniStringToObject } from "../src/index.js";
+import { readIni, writeIni, readIniSync, writeIniSync } from "ini.js/fs";
+import { iniStringToObject } from "ini.js"
+
+/* CommonJS Imports
+const { readIni, writeIni, readIniSync, writeIniSync } = require("ini.js/fs") 
+const { iniStringToObject } = require("ini.js")
+*/
 
 // synchronous examples
 
@@ -35,6 +41,8 @@ async function asyncStart(params) {
 }
 
 asyncStart()
+
+// no fs example
 
 function stringToObject() {
     const string = "key=value\ncool=yes"
