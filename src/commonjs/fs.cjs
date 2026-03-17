@@ -46,4 +46,9 @@ async function writeIni(filepath, object) {
     }
 }
 
-export {readIni, readIniSync, writeIniSync, writeIni}
+module.exports = {
+    readIni,
+    readIniSync,
+    writeIni,
+    writeIniSync
+}
