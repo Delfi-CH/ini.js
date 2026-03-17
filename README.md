@@ -2,91 +2,113 @@
 
 Key-Value Parser for JavaScript
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Syntax](#syntax)
+  - [Allowed Syntax](#allowed-syntax)
+    - [Key-Value Allocation](#key-value-allocation)
+    - [Sections](#sections)
+    - [Full line comments](#full-line-comments)
+    - [Quoted Values && Escape Codes](#quoted-values--escape-codes)
+  - [Disallowed Syntax](#disallowed-syntax)
+    - [Nested Sections](#nested-sections)
+    - [Inline comments](#inline-comments)
+    - [Duplicate Values](#duplicate-values)
+- [Documentation](#documentation)
+  - [Core](#core)
+    - [`iniStringToObject(string): Object`](#inistringtoobjectstring-object)
+    - [`objectToIniString(object): String`](#objecttoinistringobject-string)
+  - [FS](#fs)
+    - [`readIni(filepath): Object`](#readinifilepath-object)
+    - [`readIniSync(filepath): Object`](#readinisyncfilepath-object)
+    - [`writeIni(filepath, object)`](#writeinifilepath-object)
+    - [`writeIniSync(filepath)`](#writeinisyncfilepath)
+- [Example](#example)
+  - [examples/config.ini](#examplesconfigini)
+  - [examples/examples.js](#examplesexamplesjs)
+
+## Overview
+
+A minimal JavaScript parser for .ini-style Key=Value files/strings.
+
+This does not implement every feature of .ini-style files (see [https://en.wikipedia.org/wiki/INI_file#Format](https://en.wikipedia.org/wiki/INI_file#Format) for more Information). What is allowed/disallowed can be seen below.
+
 ## Syntax
 
 ### Allowed Syntax
 
-Key-Value Allocation
+#### Key-Value Allocation
 
 ```ini
 key=value
 ```
 
-Sections
+#### Sections
 
 ```ini
 [Section]
 key2=value2
-```
 
-Full line comments
-
-```ini
-; This works!
+;This is not part of the Section
 key3=value3
 ```
 
-Quoted Values && Escape Codes
+#### Full line comments
 
 ```ini
-key4="Value\n4"
+; This works!
+key4=value4
+```
+
+#### Quoted Values && Escape Codes
+
+```ini
+key5="Value\n5"
 ```
 
 ### Disallowed Syntax
 
-Nested Sections
+#### Nested Sections
 
 ```ini
 [Section]
-key5=value5
+key6=value6
 
 [Section.subsection]
-key6=value6
+key7=value7
 ```
 
-Inline comments
+#### Inline comments
 
 ```ini
-key7=value7 ; This doesnt work.
+key8=value8 ; This doesnt work.
+```
+
+#### Duplicate Values
+
+```ini
+key9=value9
+key9=value90
 ```
 
 ## Documentation
 
-### `readIni(filepath): Object`
+### Core
 
-Asynchronous reading of a .ini file to a JavaScript object.
+This is the core part of the library, which parses strings to Objects and back.
+It only uses plain JavaScript, which means it can be used anywhere.
 
-```js
-const config = await readIni("config.ini")
-```
-
-### `readIniSync(filepath): Object`
-
-Synchronous reading of a .ini file to a JavaScript object.
+Import:
 
 ```js
-const config = readIniSync("config.ini")
+// ES-Modules
+import {iniStringToObject, objectToIniString} from "ini.js";
+// CommonJS
+const {iniStringToObject, objectToIniString} = require("ini.js");
 ```
 
-### `writeIni(filepath, object)`
-
-Asynchronous writing of a JavaScript object to a .ini file.
-
-```js
-const myObject = {key: "value", number: 42}
-await writeIni("example.ini", myObject)
-```
-
-### `writeIniSync(filepath)`
-
-Synchronous writing of a JavaScript object to a .ini file.
-
-```js
-const myObject = {key: "value", number: 42}
-writeIniSync("example.ini", myObject)
-```
-
-### `iniStringToObject(string): Object`
+#### `iniStringToObject(string): Object`
 
 Convert a string, which is formatted like a .ini file to a JavaScript object.
 
@@ -101,7 +123,7 @@ Output
 { key: 'value', number: 42 }
 ```
 
-### `objectToIniString(object): String`
+#### `objectToIniString(object): String`
 
 Convert a JavaScript object to a string, which is formatted like a .ini file.
 
@@ -115,6 +137,54 @@ Output
 ```ini
 key=value
 number=42
+```
+
+### FS
+
+The fs module handles reading and writing directly from disk via the nodeJS "fs" API.
+It can only be used inside of NodeJS.
+
+Import:
+
+```js
+// ES-Modules
+import { readIni, writeIni, readIniSync, writeIniSync } from "ini.js/fs";
+// CommonJS
+const { readIni, writeIni, readIniSync, writeIniSync } = require("ini.js/fs");
+```
+
+#### `readIni(filepath): Object`
+
+Asynchronous reading of a .ini file to a JavaScript object.
+
+```js
+const config = await readIni("config.ini")
+```
+
+#### `readIniSync(filepath): Object`
+
+Synchronous reading of a .ini file to a JavaScript object.
+
+```js
+const config = readIniSync("config.ini")
+```
+
+#### `writeIni(filepath, object)`
+
+Asynchronous writing of a JavaScript object to a .ini file.
+
+```js
+const myObject = {key: "value", number: 42}
+await writeIni("example.ini", myObject)
+```
+
+#### `writeIniSync(filepath)`
+
+Synchronous writing of a JavaScript object to a .ini file.
+
+```js
+const myObject = {key: "value", number: 42}
+writeIniSync("example.ini", myObject)
 ```
 
 ## Example
