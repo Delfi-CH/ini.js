@@ -9,6 +9,7 @@ async function test() {
     const exampleLf = {
         key: 'value',
         string: 'String\\r\\n',
+        bool: true,
         number: 123,
         float: 123.456,
         system: { '69': 69, win: false, bad: 'maybe', compiler: 'gcc' }
@@ -17,6 +18,7 @@ async function test() {
     const exampleCrlf = {
         key: 'value',
         string: 'String\\r\\n',
+        bool: true,
         number: 123,
         float: 123.456,
         system: { '69': 420, win: true, bad: 'forsure', compiler: 'msvc' }
