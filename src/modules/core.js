@@ -16,7 +16,7 @@ function parseKeyValueToObject(string) {
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i]
         const section = /^\[(.*)\]$/
-        const comment = /;.*/
+        const comment = /(;|#).*/
 
         if (!!line.match(comment) || line.trim() === '') {
             continue

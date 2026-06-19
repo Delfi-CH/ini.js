@@ -67,10 +67,15 @@ key3=value3
 key4=value4
 ```
 
+```ini
+# This also works!
+key5=value5
+```
+
 #### Quoted Values && Escape Codes
 
 ```ini
-key5="Value\n5"
+key6="Value\n6"
 ```
 
 ### Disallowed Syntax
@@ -79,23 +84,27 @@ key5="Value\n5"
 
 ```ini
 [Section]
-key6=value6
+key7=value7
 
 [Section.subsection]
-key7=value7
+key8=value8
 ```
 
 #### Inline comments
 
 ```ini
-key8=value8 ; This doesnt work.
+key9=value9 ; This doesnt work.
+```
+
+```ini
+key10=value10 # Same for this.
 ```
 
 #### Duplicate Values
 
 ```ini
-key9=value9
-key9=value90
+key11=value11
+key11=value110
 ```
 
 ## Documentation
@@ -206,6 +215,7 @@ password=supersecredpassword
 
 port=3000
 auth=true
+# dont edit this
 laststarted=2026-03-16T20:31:48.299Z
 ```
 
