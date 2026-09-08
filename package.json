@@ -1,6 +1,6 @@
 {
   "name": "@delfi-ch/ini.js",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Key-Value Parser for JavaScript",
   "keywords": [
     "ini",
@@ -12,23 +12,24 @@
   "author": "Delfi-CH <delfi@delfi.dev> (https://delfi.dev)",
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./src/modules/core.js",
-      "require": "./src/commonjs/core.cjs"
+    "./old": {
+      "import": "./src/old/modules/core.js",
+      "require": "./src/old/commonjs/core.cjs"
     },
-    "./fs": {
-      "import": "./src/modules/fs.js",
-      "require": "./src/commonjs/fs.cjs"
+    "./old/fs": {
+      "import": "./src/old/modules/fs.js",
+      "require": "./src/old/commonjs/fs.cjs"
     }
   },
-  "main": "./src/commonjs/core.cjs",
+  "main": "./src/commonjs/old/core.cjs",
   "files": [
     "src",
+    "dist",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "test": "node test/test.js"
+    "test": "tsx test/test.ts"
   },
   "repository": {
     "type": "git",
@@ -38,5 +39,10 @@
     "url": "https://github.com/Delfi-CH/ini.js/issues"
   },
   "homepage": "https://github.com/Delfi-CH/ini.js",
-  "readme": "README.md"
+  "readme": "README.md",
+  "devDependencies": {
+    "@types/node": "^26.5.0",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
+  }
 }
