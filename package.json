@@ -12,16 +12,16 @@
   "author": "Delfi-CH <delfi@delfi.dev> (https://delfi.dev)",
   "type": "module",
   "exports": {
-    "./old": {
-      "import": "./src/old/modules/core.js",
-      "require": "./src/old/commonjs/core.cjs"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
-    "./old/fs": {
-      "import": "./src/old/modules/fs.js",
-      "require": "./src/old/commonjs/fs.cjs"
+    "./fs": {
+      "import": "./dist/fs.js",
+      "require": "./dist/fs.cjs"
     }
   },
-  "main": "./src/commonjs/old/core.cjs",
+  "main": "./src/public/index.ts",
   "files": [
     "src",
     "dist",
@@ -29,7 +29,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "tsx test/test.ts"
+    "test": "tsx test/test.ts",
+    "build": "esbuild src/public/index.ts --bundle --minify --outfile=dist/index.js && esbuild src/public/fs.ts --bundle --minify --platform=neutral --packages=external --outfile=dist/fs.js && esbuild src/public/index.ts --bundle --minify --platform=node --outfile=dist/index.cjs && esbuild src/public/fs.ts --bundle --minify --platform=node --outfile=dist/fs.cjs"
   },
   "repository": {
     "type": "git",
@@ -44,5 +45,8 @@
     "@types/node": "^26.5.0",
     "tsx": "^4.23.13",
     "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "esbuild": "^0.28.2"
   }
 }

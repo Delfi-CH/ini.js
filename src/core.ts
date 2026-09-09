@@ -320,5 +320,4 @@ export {
   parseLinesIntoSections,
   parseSectionsIntoSubSections,
   parseSubSectionsIntoObject,
-  type ParsedLine,
 };

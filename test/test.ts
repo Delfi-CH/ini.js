@@ -1,4 +1,4 @@
-import { iniToObject } from "../src/fs.js";
+import { iniFileToObject } from "../src/public/fs.js";
 
-await iniToObject("data/example.ini")
+console.log(await iniToObject("data/example.ini"))
 //await iniToObject("data/incorrect.ini")
