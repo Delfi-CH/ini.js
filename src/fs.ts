@@ -1,8 +1,8 @@
 import * as fs from "node:fs/promises";
 import * as fsSync from "node:fs";
-import { parseLine, type ParsedLine } from "./core.js";
+import { parseLine, parseLinesIntoSections, parseSectionsIntoSubSections, parseStringIntoLines, parseSubSectionsIntoObject, type ParsedLine } from "./core.js";
 
-async function iniToObject(filename: fsSync.PathLike): Promise<object | null> {
+async function iniToObjectReadline(filename: fsSync.PathLike): Promise<object | null> {
   try {
   const file = await fs.open(filename);
   let lines: ParsedLine[] = [];
@@ -23,8 +23,24 @@ async function iniToObject(filename: fsSync.PathLike): Promise<object | null> {
       throw error;
     }
   }
-  console.log(lines)
+  //console.log(lines)
   return null;
+  } catch (error) {
+    throw error
+  }
+}
+
+async function iniToObject(filename: fsSync.PathLike): Promise<object | null> {
+  try {
+    const file = await fs.readFile(filename, {encoding: "utf8"})
+    const lines = parseStringIntoLines(file)
+    const sections = parseLinesIntoSections(lines)
+    const subsections = parseSectionsIntoSubSections(sections)
+    if (subsections) {
+      const object = parseSubSectionsIntoObject(subsections)
+      fs.writeFile("data/out.json", JSON.stringify(object))
+    }
+    return null
   } catch (error) {
     throw error
   }

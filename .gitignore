@@ -1,5 +1,6 @@
-data/output_sync.ini
-data/output_async.ini
+data/*
+!data/example.ini
+!data/incorrect.ini
 
 node_modules
 dist
