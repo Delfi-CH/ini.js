@@ -14,8 +14,6 @@ interface Section {
   subsections: Section[];
 }
 
-type iniFile = Section;
-
 interface ParsedLine {
   type: ParsedLineType;
   id: string;
@@ -321,3 +319,14 @@ export {
   parseSectionsIntoSubSections,
   parseSubSectionsIntoObject,
 };
+
+export type {
+  ParsedLine,
+  ParsedLineType,
+  ParsedSection,
+  KeyValuePair,
+  Section,
+  EmptyLine,
+  Comment,
+  FullLineComment 
+}

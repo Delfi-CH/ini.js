@@ -1,6 +1,6 @@
 import * as fs from "node:fs/promises";
 import * as fsSync from "node:fs";
-import { parseLinesIntoSections, parseSectionsIntoSubSections, parseStringIntoLines, parseSubSectionsIntoObject } from "../core.js";
+import { parseLinesIntoSections, parseSectionsIntoSubSections, parseStringIntoLines, parseSubSectionsIntoObject } from "./core.js";
 
 async function iniFileToObject(filename: fsSync.PathLike): Promise<object | null> {
   try {
