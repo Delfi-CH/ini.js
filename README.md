@@ -24,6 +24,7 @@ View on npm: [https://www.npmjs.com/package/@delfi-ch/ini.js?activeTab=readme](h
   - [Core](#core)
   - [FS](#fs)
 - [Example](#example)
+- [Building the library](#building-the-library)
 
 ## Overview
 
@@ -145,7 +146,7 @@ const {
 } = require("@delfi-ch/ini.js");
 ```
 
-todo
+For further documentation on the functions, consult the jsdoc comments in the typedefinitons 
 
 ### FS
 
@@ -184,8 +185,28 @@ const {
 } = require("@delfi-ch/ini.js/fs");
 ```
 
-todo
+For further documentation on the functions, consult the jsdoc comments in the typedefinitons 
 
 ## Example
 
-todo
+WIP
+
+## Building the library
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/Delfi-CH/ini.js.git
+```
+
+2. Install the dev dependencies
+
+```bash
+pnpm install
+```
+
+3. Build the library
+
+```bash
+pnpm build
+```

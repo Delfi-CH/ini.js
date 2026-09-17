@@ -1,6 +1,6 @@
 {
   "name": "@delfi-ch/ini.js",
-  "version": "1.0.0",
+  "version": "0.9.9",
   "description": "Key-Value Parser for JavaScript",
   "keywords": [
     "ini",
@@ -23,9 +23,8 @@
       "require": "./dist/fs.cjs"
     }
   },
-  "main": "./src/index.ts",
+  "main": "./dist/index.cjs",
   "files": [
-    "src",
     "dist",
     "README.md",
     "LICENSE"
