@@ -1,6 +1,6 @@
 {
   "name": "@delfi-ch/ini.js",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "description": "Key-Value Parser for JavaScript",
   "keywords": [
     "ini",
@@ -32,7 +32,7 @@
   "scripts": {
     "test": "tsx test/test.ts",
     "t2": "tsx test/test2.ts",
-    "build": "esbuild src/index.ts --bundle --minify --outfile=dist/index.js && esbuild src/fs.ts --bundle --minify --platform=neutral --packages=external --outfile=dist/fs.js && esbuild src/index.ts --bundle --minify --platform=node --outfile=dist/index.cjs && esbuild src/fs.ts --bundle --minify --platform=node --outfile=dist/fs.cjs && tsc",
+    "build": "esbuild src/index.ts --bundle --minify --format=esm --outfile=dist/index.js && esbuild src/fs.ts --bundle --minify --platform=neutral --packages=external --format=esm --outfile=dist/fs.js && esbuild src/index.ts --bundle --minify --platform=node --outfile=dist/index.cjs && esbuild src/fs.ts --bundle --minify --platform=node --outfile=dist/fs.cjs && tsc",
     "format": "prettier --write ."
   },
   "repository": {
