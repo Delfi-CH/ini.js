@@ -1,5 +1,10 @@
 import * as fs from "node:fs/promises";
-import { parseLinesIntoSections, parseSectionsIntoSubSections, parseStringIntoLines, parseSubSectionsIntoObject } from "../src/stringparse.js"
+import {
+  parseLinesIntoSections,
+  parseSectionsIntoSubSections,
+  parseStringIntoLines,
+  parseSubSectionsIntoObject,
+} from "../src/stringparse.js";
 import { parseIndividualSectionToString } from "../src/objectparse.js";
 
 try {

@@ -126,7 +126,7 @@ function parseLine(line: string): ParsedLine | undefined {
 
     // check for inline comments
     let splitValue = value.split(comment);
-    splitValue[0] = String(splitValue[0]).trim()
+    splitValue[0] = String(splitValue[0]).trim();
     if (splitValue.length > 1) {
       localComment = {
         // @ts-ignore it can only be ; or #, womp womp
@@ -149,6 +149,8 @@ function parseLine(line: string): ParsedLine | undefined {
     }
 
     return returnable;
+  } else {
+    throw new Error("Invalid line!: " + line);
   }
 }
 
@@ -212,7 +214,8 @@ function parseLinesIntoSections(lines: ParsedLine[]): Section[] {
             name: `section.${line.content.name}`,
             lines: [],
             subsections: [],
-            inlineComment: line.content.inlineComment
+            // @ts-ignore womp womp
+            inlineComment: line.content.inlineComment,
           },
         ];
         currentSectionIndex = sections.length - 1;
@@ -239,26 +242,27 @@ function parseSectionsIntoSubSections(sections: Section[]) {
 }
 
 function parseSubSectionsIntoObject(section: Section): Object {
-  let object = parseIndividualSectionToObject(section)
+  let object = parseIndividualSectionToObject(section);
   for (const subsection of section.subsections) {
     // @ts-ignore womp womp
-    object[subsection.name.split(".").at(-1)] = parseSubSectionsIntoObject(subsection)
+    object[subsection.name.split(".").at(-1)] =
+      parseSubSectionsIntoObject(subsection);
   }
-  
-  return object
+
+  return object;
 }
 
 function parseIndividualSectionToObject(section: Section): Object {
-  let object = {}
+  let object = {};
   if (section.lines.length >= 1) {
-      section.lines.forEach((line)=>{
-        if (line.type === ParsedLineType.KeyValuePair) {
-          // @ts-ignore womp womp
-          object[line.content.key] = line.content.value;
-        }
-    })
+    section.lines.forEach((line) => {
+      if (line.type === ParsedLineType.KeyValuePair) {
+        // @ts-ignore womp womp
+        object[line.content.key] = line.content.value;
+      }
+    });
   }
-  return object
+  return object;
 }
 
 function str2bool(string: string): boolean | undefined {
@@ -321,7 +325,7 @@ export {
   parseLinesIntoSections,
   parseSectionsIntoSubSections,
   parseSubSectionsIntoObject,
-  ParsedLineType
+  ParsedLineType,
 };
 
 export type {
@@ -331,5 +335,5 @@ export type {
   Section,
   EmptyLine,
   Comment,
-  FullLineComment 
-}
+  FullLineComment,
+};
