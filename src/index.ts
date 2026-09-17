@@ -3,7 +3,7 @@ import {
   parseSectionsIntoSubSections,
   parseStringIntoLines,
   parseSubSectionsIntoObject,
-} from "./core.js";
+} from "./stringparse.js";
 import type {
   ParsedLine,
   ParsedLineType,
@@ -13,7 +13,8 @@ import type {
   EmptyLine,
   Comment,
   FullLineComment,
-} from "./core.js";
+} from "./stringparse.js";
+import { parseObjectLineToString } from "./objectparse.js";
 
 function iniToObject(string: string): object | null {
   try {
@@ -30,7 +31,20 @@ function iniToObject(string: string): object | null {
   }
 }
 
-export { iniToObject };
+function objectToIni(
+  object: Object,
+  newline: string = "\n"
+): string {
+  let str = "";
+
+  for (const [key, value] of Object.entries(object)) {
+    str += parseObjectLineToString(key, value, newline);
+  }
+
+  return str;
+}
+
+export { iniToObject, objectToIni };
 
 export type {
   ParsedLine,
@@ -40,5 +54,5 @@ export type {
   Section,
   EmptyLine,
   Comment,
-  FullLineComment,
+  FullLineComment
 };

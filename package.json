@@ -32,6 +32,7 @@
   ],
   "scripts": {
     "test": "tsx test/test.ts",
+    "t2": "tsx test/test2.ts",
     "build": "esbuild src/index.ts --bundle --minify --outfile=dist/index.js && esbuild src/fs.ts --bundle --minify --platform=neutral --packages=external --outfile=dist/fs.js && esbuild src/index.ts --bundle --minify --platform=node --outfile=dist/index.cjs && esbuild src/fs.ts --bundle --minify --platform=node --outfile=dist/fs.cjs && tsc"
   },
   "repository": {

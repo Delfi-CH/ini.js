@@ -12,6 +12,7 @@ interface Section {
   name: string;
   lines: ParsedLine[];
   subsections: Section[];
+  inlineComment?: Comment;
 }
 
 interface ParsedLine {
@@ -125,6 +126,7 @@ function parseLine(line: string): ParsedLine | undefined {
 
     // check for inline comments
     let splitValue = value.split(comment);
+    splitValue[0] = String(splitValue[0]).trim()
     if (splitValue.length > 1) {
       localComment = {
         // @ts-ignore it can only be ; or #, womp womp
@@ -210,6 +212,7 @@ function parseLinesIntoSections(lines: ParsedLine[]): Section[] {
             name: `section.${line.content.name}`,
             lines: [],
             subsections: [],
+            inlineComment: line.content.inlineComment
           },
         ];
         currentSectionIndex = sections.length - 1;
@@ -318,11 +321,11 @@ export {
   parseLinesIntoSections,
   parseSectionsIntoSubSections,
   parseSubSectionsIntoObject,
+  ParsedLineType
 };
 
 export type {
   ParsedLine,
-  ParsedLineType,
   ParsedSection,
   KeyValuePair,
   Section,
