@@ -1,6 +1,6 @@
 {
   "name": "@delfi-ch/ini.js",
-  "version": "0.1.1",
+  "version": "0.9.9",
   "description": "Key-Value Parser for JavaScript",
   "keywords": [
     "ini",
@@ -13,22 +13,27 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./src/modules/core.js",
-      "require": "./src/commonjs/core.cjs"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./fs": {
-      "import": "./src/modules/fs.js",
-      "require": "./src/commonjs/fs.cjs"
+      "types": "./dist/fs.d.ts",
+      "import": "./dist/fs.js",
+      "require": "./dist/fs.cjs"
     }
   },
-  "main": "./src/commonjs/core.cjs",
+  "main": "./dist/index.cjs",
   "files": [
-    "src",
+    "dist",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "test": "node test/test.js"
+    "test": "tsx test/test.ts",
+    "t2": "tsx test/test2.ts",
+    "build": "esbuild src/index.ts --bundle --minify --outfile=dist/index.js && esbuild src/fs.ts --bundle --minify --platform=neutral --packages=external --outfile=dist/fs.js && esbuild src/index.ts --bundle --minify --platform=node --outfile=dist/index.cjs && esbuild src/fs.ts --bundle --minify --platform=node --outfile=dist/fs.cjs && tsc",
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -38,5 +43,12 @@
     "url": "https://github.com/Delfi-CH/ini.js/issues"
   },
   "homepage": "https://github.com/Delfi-CH/ini.js",
-  "readme": "README.md"
+  "readme": "README.md",
+  "devDependencies": {
+    "@types/node": "^26.5.0",
+    "esbuild": "^0.28.2",
+    "prettier": "^3.9.6",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
+  }
 }
